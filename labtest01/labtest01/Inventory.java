@@ -21,6 +21,18 @@ public class Inventory
 		aName = pName;
 	}
 	
+	
+	public int totalValue()
+	{
+		int itemCount = 0;
+		for (Item i: aInventory.keySet())
+		{
+			itemCount ++;
+		}
+		
+		return itemCount;
+	}
+	
 	/**
 	 * @return The unique name of this inventory.
 	 */
@@ -55,6 +67,10 @@ public class Inventory
 	 */
 	public void dispose(Item pItem, int pQuantity)
 	{
+		/** assert that this Item exists in the Inventory */
+		assert aInventory.containsKey(pItem);
+		assert aInventory.get(pItem) >= pQuantity;
+		
 		int amount = aInventory.get(pItem);
 		amount -= pQuantity;
 		aInventory.put(pItem, amount);
